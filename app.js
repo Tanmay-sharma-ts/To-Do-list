@@ -1,5 +1,5 @@
 //
-
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const date = require(__dirname + "/date.js");
@@ -13,7 +13,9 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todolistDB");
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log("MongoDB Connected"))
+.catch(err => console.log(err));
 
 const itemsSchema = {
     name : String
@@ -147,6 +149,8 @@ app.post("/work", function(req, res){
     res.redirect("/work");
 });
 
-app.listen(3000, function(){
-    console.log("Server started at port 3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server started at port ${PORT}`);
 });
