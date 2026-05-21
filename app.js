@@ -15,6 +15,12 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost:27017/todolistDB");
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log("Server running");
+});
+
 const itemsSchema = {
     name : String
 };
