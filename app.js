@@ -13,7 +13,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todolistDB");
+mongoose.connect(process.env.MONGO_URI);
 
 const PORT = process.env.PORT || 3000;
 
@@ -153,6 +153,3 @@ app.post("/work", function(req, res){
     res.redirect("/work");
 });
 
-app.listen(3000, function(){
-    console.log("Server started at port 3000");
-});
